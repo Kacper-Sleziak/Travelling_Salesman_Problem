@@ -5,6 +5,7 @@ def create_matrix(file_name):
     file_path = 'test_files/' + file_name
     matrix = []
     OPT = ""
+    number_of_cities = ""
 
     with open(file_path, 'r') as f:
         for count, line in enumerate(f):
@@ -19,6 +20,11 @@ def create_matrix(file_name):
                 for char in line:
                     OPT += char
                 OPT = int(OPT)
+
+            elif index_of_line == 1:
+                for char in line:
+                    number_of_cities += char
+                number_of_cities = int(number_of_cities)
 
             elif index_of_line >= 2:
                 number = ""
@@ -38,4 +44,4 @@ def create_matrix(file_name):
 
             index_of_line += 1
     matrix = np.array(matrix, dtype='int16')
-    return matrix, OPT
+    return matrix, OPT, number_of_cities
