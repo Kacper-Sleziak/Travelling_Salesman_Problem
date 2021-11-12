@@ -3,7 +3,11 @@ from copy import copy
 
 from BuildMatrix import create_matrix
 
-matrix, OPT, number_of_cities = create_matrix("m6.atsp")
+print("To start program choose testing file: ")
+file_name = input()
+print(f"You are using file '{file_name}' ")
+print(" ")
+matrix, OPT, numbers_of_cities = create_matrix(file_name)
 
 
 def find_very_first_best_path():
@@ -21,7 +25,7 @@ def find_very_first_best_path():
     first_best_len += minimum
     first_best_path.append(next_city)
 
-    while len(first_best_path) != number_of_cities:
+    while len(first_best_path) != numbers_of_cities:
         city_to_research = next_city
         minimum = sys.maxsize
 
@@ -59,7 +63,7 @@ def bound(vertex):
     cities_still_to_search = []
 
     # finding cities that we are still not in path
-    for i in range(number_of_cities):
+    for i in range(numbers_of_cities):
         if i not in vertex:
             cities_still_to_search.append(i)
 
@@ -78,4 +82,68 @@ def bound(vertex):
     return bound
 
 
+def value(vertex):
+    value = 0
 
+    for i in range(len(vertex)):
+        v = i
+        u = i + 1
+
+        if u < len(vertex):
+            city_1 = vertex[v]
+            city_2 = vertex[u]
+            value += matrix[city_1][city_2]
+
+    return value
+
+
+def main_loop():
+    best_path, best_len = find_very_first_best_path()
+    root = [0]
+    priority_queue = [root]
+
+    PRD = (100 * (best_len - OPT)) / OPT
+
+    print(f"best_len: {best_len}")
+    print(f"best_path: {best_path}")
+    print(f"{best_len}   {PRD:.2f}%")
+    print()
+
+    while priority_queue:
+        researching_vertex = priority_queue[-1]
+        priority_queue.pop()
+
+        cities_not_in_vertex = []
+
+        for i in range(numbers_of_cities):
+            if i not in researching_vertex:
+                cities_not_in_vertex.append(i)
+
+        # Adding kids to queue
+        if cities_not_in_vertex:
+            for city in cities_not_in_vertex:
+                new_vertex = copy(researching_vertex)
+                new_vertex.append(city)
+                if bound(new_vertex) < best_len:
+                    priority_queue.append(new_vertex)
+
+        # Counting final value of node
+        else:
+            new_vertex = copy(researching_vertex)
+            new_vertex.append(0)
+            final_len = value(new_vertex)
+            final_path = new_vertex
+
+            if final_len < best_len:
+                best_len = final_len
+                best_path = final_path
+
+                PRD = (100 * (best_len - OPT)) / OPT
+                print("Update")
+                print(f"best_len: {best_len}")
+                print(f"best_path: {best_path}")
+                print(f"{best_len}   {PRD:.2f}%")
+                print()
+
+
+main_loop()

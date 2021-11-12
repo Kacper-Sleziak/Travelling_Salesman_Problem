@@ -1,5 +1,11 @@
 from copy import copy
-import BuildMatrix
+from BuildMatrix import create_matrix
+
+print("To start program choose testing file: ")
+file_name = input()
+print(f"You are using file '{file_name}' ")
+print(" ")
+matrix, OPT, number_of_cities = create_matrix(file_name)
 
 
 def next_permutation(a):
@@ -27,9 +33,7 @@ def next_permutation(a):
     return True
 
 
-def brute_force(file_name):
-    matrix, OPT, number_of_cities = BuildMatrix.create_matrix(file_name)
-
+def brute_force():
     permutation = []
     new_len = 0
     last_visited_city = 0
@@ -75,4 +79,4 @@ def brute_force(file_name):
     print(f"Najlepsza sciezka{final_route}")
 
 
-brute_force("m6.atsp")
+brute_force()
