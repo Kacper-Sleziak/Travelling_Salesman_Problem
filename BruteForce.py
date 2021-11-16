@@ -10,8 +10,6 @@ matrix, OPT, number_of_cities = create_matrix(file_name)
 
 def next_permutation(a):
     """Generate the lexicographically next permutation inplace.
-
-    https://en.wikipedia.org/wiki/Permutation#Generation_in_lexicographic_order
     Return false if there is no next permutation.
     """
     # Find the largest index i such that a[i] < a[i + 1]. If no such

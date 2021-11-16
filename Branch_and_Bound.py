@@ -16,6 +16,7 @@ def find_very_first_best_path():
 
     minimum = sys.maxsize
     next_city = 0
+    # find shortest way from city with 0 index
     for i in range(matrix[0].size):
         if i != 0:
             if matrix[0][i] < minimum:
@@ -25,6 +26,7 @@ def find_very_first_best_path():
     first_best_len += minimum
     first_best_path.append(next_city)
 
+    # when first best_path == numbers_of_cities we have all route
     while len(first_best_path) != numbers_of_cities:
         city_to_research = next_city
         minimum = sys.maxsize
@@ -46,19 +48,8 @@ def find_very_first_best_path():
 
 
 def bound(vertex):
-    bound = 0
-
-    # Count actual length of path
-    for i in range(len(vertex)):
-        v = i
-        u = i + 1
-
-        if u < len(vertex):
-            city_1 = vertex[v]
-            city_2 = vertex[u]
-            edge = matrix[city_1][city_2]
-
-            bound += edge
+    # Get cost from cities that are in path
+    bound = value(vertex)
 
     cities_still_to_search = []
 
@@ -67,7 +58,7 @@ def bound(vertex):
         if i not in vertex:
             cities_still_to_search.append(i)
 
-    # adding city from vertex that dont have path to next city
+    # adding city from vertex (last city in path) that dont have path to next city
     cities_still_to_search.append(vertex[-1])
 
     # finding minimal cost of traveling to every city that we have to travel to
@@ -104,7 +95,6 @@ def main_loop():
 
     PRD = (100 * (best_len - OPT)) / OPT
 
-    print(f"best_len: {best_len}")
     print(f"best_path: {best_path}")
     print(f"{best_len}   {PRD:.2f}%")
     print()
@@ -140,7 +130,6 @@ def main_loop():
 
                 PRD = (100 * (best_len - OPT)) / OPT
                 print("Update")
-                print(f"best_len: {best_len}")
                 print(f"best_path: {best_path}")
                 print(f"{best_len}   {PRD:.2f}%")
                 print()
