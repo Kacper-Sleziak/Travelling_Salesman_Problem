@@ -61,7 +61,9 @@ def brute_force():
         if best_len > new_len:
             best_len = new_len
             best_route = copy(permutation)
+            print("---")
             print("Found better route")
+            print("---")
 
         PRD = (100 * (new_len - OPT)) / OPT
         print(f"{new_len}   {PRD:.2f}%")
@@ -73,8 +75,8 @@ def brute_force():
     final_route.append(0)
 
     print("")
-    print(f"Koszt najlepszej sciezki {best_len}")
-    print(f"Najlepsza sciezka{final_route}")
+    print(f"Best route cost: {best_len}")
+    print(f"Best route: {final_route}")
 
 
 brute_force()
