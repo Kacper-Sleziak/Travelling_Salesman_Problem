@@ -16,7 +16,7 @@ def menu():
         if number == "1":
             os.system('BruteForce.py')
 
-        if number == "2":
+        elif number == "2":
             os.system('Branch_and_Bound.py')
 
         elif number == "3":
