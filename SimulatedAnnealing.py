@@ -5,15 +5,16 @@ from copy import copy
 
 from BuildMatrix import create_matrix
 
-T0 = 1000           # Beginning Temperature
-T = T0              # Actual Temperature
-A = 0.999           # Cooling Factor
-AGES = 50           # Number of Ages
-K = 0               # Number of temperature decreases
-path_local = []
-path_len_local = 0
+T0 = 1000                           # Beginning Temperature
+T = T0                              # Actual Temperature
+end_temperature = 10 ** -5          # Ending Temperature
+A = 0.999                           # Cooling Factor
+AGES = 120                          # Number of Ages
+K = 0                               # Number of temperature decreases
+path_local = []                     # Path of searching point
+path_len_local = 0                  # Path length of searching point
 
-matrix, OPT, number_of_cities = create_matrix("Brazil58.tsp")
+matrix, OPT, number_of_cities = create_matrix("gr120.tsp")
 
 
 def first_route():
@@ -98,7 +99,7 @@ path_local = best_path
 path_len_local = best_len
 ages_left = AGES
 
-while T > 10 ** -5:
+while T > end_temperature:
     while ages_left > 0:
         swap_city_index1 = random.randint(1, number_of_cities - 1)
         swap_city_index2 = random.randint(1, number_of_cities - 1)
@@ -138,4 +139,7 @@ while T > 10 ** -5:
     K += 1
 
 PRD = (100 * (best_len - OPT)) / OPT
+print("")
+print("Best Result: ")
 print(f"{best_len} {PRD:.2f}%")
+print(best_path)
