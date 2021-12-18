@@ -9,7 +9,7 @@ def menu():
         print("Choose way to solve the TSP: ")
         print("Type 1 for Brute Force approach")
         print("Type 2 for Branch and Bound approach")
-        print("Type 3 to end program")
+        print("Type 3 for Simulated Annealing")
         number = input("Chose number: ")
         print("")
 
