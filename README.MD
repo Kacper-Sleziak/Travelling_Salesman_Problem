@@ -10,7 +10,7 @@ Branch and Bound, Simulated Annealing
 
 ## Usage
 
-To use this program just run UserPanel.py script and write name of file with .tsp or.atsp  extenstions. Examples of files you will find in folder 'test_files'.
+To use this program just run UserPanel.py script and write name of file with .tsp or .atsp  extenstions. Examples of files you will find in folder 'test_files'.
 
 ```python
 def menu():
