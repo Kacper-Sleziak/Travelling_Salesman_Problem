@@ -5,14 +5,14 @@ from copy import copy
 from BuildMatrix import create_matrix
 
 # Starting Parameters of SP
-T0 = 1000                           # Beginning Temperature
-T = T0                              # Actual Temperature
-END_TEMPERATURE = 10 ** -5          # Ending Temperature
-A = 0.999                           # Cooling Factor
-AGES = 50                           # Number of Ages
-K = 0                               # Number of temperature decrease
-path_local = []                     # Path of researching point
-path_len_local = 0                  # Path length of researching point
+T0 = 1000  # Beginning Temperature
+T = T0  # Actual Temperature
+END_TEMPERATURE = 10 ** -5  # Ending Temperature
+A = 0.999  # Cooling Factor
+AGES = 50  # Number of Ages
+K = 0  # Number of temperature decrease
+path_local = []  # Path of researching point
+path_len_local = 0  # Path length of researching point
 
 # Asking for file
 print("To start program choose testing file: ")
@@ -20,6 +20,10 @@ file_name = input()
 print(f"You are using file '{file_name}' ")
 print(" ")
 matrix, OPT, number_of_cities = create_matrix(file_name)
+
+# Checking symmetric of problem
+splited_name = file_name.split('.')
+type_of_problem = splited_name[1]
 
 
 # Get first path as a set of next cities
@@ -99,6 +103,48 @@ def Cooling():
     T = A ** K * T0
 
 
+def getNeighbourBySwap():
+    # Getting 2 random cities to swap to get neighbour of actual point
+    swap_city_index1 = random.randint(1, number_of_cities - 1)
+    swap_city_index2 = random.randint(1, number_of_cities - 1)
+
+    # Create random neighbour of actual point
+    neighbour = copy(path_local)
+    swap_helper = path_local[swap_city_index1]
+    neighbour[swap_city_index1] = path_local[swap_city_index2]
+    neighbour[swap_city_index2] = swap_helper
+
+    neighbour_len = value(neighbour)
+
+    return neighbour, neighbour_len
+
+
+def getNeighbourByInvert():
+    start_index = random.randint(1, number_of_cities - 1)
+    end_index = random.randint(1, number_of_cities - 1)
+
+    # swap indexes
+    if end_index < start_index:
+        helper = start_index
+        start_index = end_index
+        end_index = helper
+
+    neighbour = copy(path_local)
+
+    # get part of list to reverse
+    help_list = neighbour[start_index:end_index]
+
+    # reverse that part
+    help_list.reverse()
+
+    # change list of citiers
+    for i in range(start_index, end_index):
+        neighbour[i] = help_list[i - start_index]
+
+    neighbour_len = value(neighbour)
+    return neighbour, neighbour_len
+
+
 # Getting first best path
 best_path, best_len = find_very_first_best_path()
 PRD = (100 * (best_len - OPT)) / OPT
@@ -113,17 +159,13 @@ ages_left = AGES
 while T > END_TEMPERATURE:
     while ages_left > 0:
 
-        # Getting 2 random cities to swap to get neighbour of actual point
-        swap_city_index1 = random.randint(1, number_of_cities - 1)
-        swap_city_index2 = random.randint(1, number_of_cities - 1)
+        # for symmetric tsp problem
+        if type_of_problem == "tsp":
+            neighbour, neighbour_len = getNeighbourByInvert()
 
-        # Create random neighbour of actual point
-        neighbour = copy(path_local)
-        swap_helper = path_local[swap_city_index1]
-        neighbour[swap_city_index1] = path_local[swap_city_index2]
-        neighbour[swap_city_index2] = swap_helper
-
-        neighbour_len = value(neighbour)
+        # for asymmetric tsp problem
+        else:
+            neighbour, neighbour_len = getNeighbourBySwap()
 
         # Counting probability of moving from actual point to neighbour
         if neighbour_len > path_len_local:
