@@ -5,14 +5,14 @@ from copy import copy
 from BuildMatrix import create_matrix
 
 # Starting Parameters of SP
-T0 = 1000  # Beginning Temperature
-T = T0  # Actual Temperature
-END_TEMPERATURE = 10 ** -5  # Ending Temperature
-A = 0.999  # Cooling Factor
-AGES = 50  # Number of Ages
-K = 0  # Number of temperature decrease
-path_local = []  # Path of researching point
-path_len_local = 0  # Path length of researching point
+T0 = 1000                                           # Beginning Temperature
+T = T0                                              # Actual Temperature
+END_TEMPERATURE = 10 ** -5                          # Ending Temperature
+A = 0.999                                           # Cooling Factor
+AGES = 50                                           # Number of Ages
+K = 0                                               # Number of temperature decrease
+path_local = []                                     # Path of researching point
+path_len_local = 0                                  # Path length of researching point
 
 # Asking for file
 print("To start program choose testing file: ")
