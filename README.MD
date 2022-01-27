@@ -22,7 +22,8 @@ def menu():
         print("Type 1 for Brute Force approach")
         print("Type 2 for Branch and Bound approach")
         print("Type 3 for Simulated Annealing approach")
-        print("Type 4 to end program")
+        print("Type 4 for Genetic Algorithm approach")
+        print("Type 5 to end program")
         number = input("Chose number: ")
         print("")
 
@@ -38,9 +39,13 @@ def menu():
         elif number == "4":
             running = False
             print("END")
+            
+        elif number == "5":
+            running = False
+            print("END")
 
         else:
-            print("You have to chose number from 1 to 4!")
+            print("You have to chose number from 1 to 5!")
 
 
 menu()
