@@ -9,7 +9,9 @@ def menu():
         print("Choose way to solve the TSP: ")
         print("Type 1 for Brute Force approach")
         print("Type 2 for Branch and Bound approach")
-        print("Type 3 for Simulated Annealing")
+        print("Type 3 for Simulated Annealing approach")
+        print("Type 4 for Genetic Algorithm approach")
+        print("Type 5 to end program")
         number = input("Chose number: ")
         print("")
 
@@ -20,11 +22,18 @@ def menu():
             os.system('Branch_and_Bound.py')
 
         elif number == "3":
+            os.system('SimulatedAnnealing.py')
+
+        elif number == "4":
+            running = False
+            os.system('GeneticAlgorithm.py')
+
+        elif number == "5":
             running = False
             print("END")
 
         else:
-            print("You have to chose number from 1 to 3!")
+            print("You have to chose number from 1 to 5!")
 
 
 menu()
