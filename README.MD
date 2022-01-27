@@ -37,8 +37,7 @@ def menu():
             os.system('SimulatedAnnealing.py')
 
         elif number == "4":
-            running = False
-            print("END")
+            os.system('GeneticAlgorithm.py')
             
         elif number == "5":
             running = False
